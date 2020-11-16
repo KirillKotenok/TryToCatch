@@ -93,7 +93,7 @@ public class MainView extends View {
         canvas.drawBitmap(background, 0, 0, null);
 
         //Elk
-        minElkX = 0;
+        minElkX = 0-elk.getWidth();
         maxElkX = screenX - elk.getHeight();
         if (elkX < minElkX) {
             elkX = minElkX;
