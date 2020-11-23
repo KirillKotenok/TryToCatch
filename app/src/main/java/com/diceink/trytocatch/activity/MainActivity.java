@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.diceink.trytocatch.R;
 import com.diceink.trytocatch.view.MainView;
 
 import java.util.Timer;
@@ -20,26 +24,38 @@ public class MainActivity extends AppCompatActivity {
     private final static long INTERVAL = 30;
     private Intent intent;
 
+    private TextView textView;
+    private Button start_btn;
+    private Button exit_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         handler = new Handler();
         point = new Point();
+        textView = findViewById(R.id.welcome);
+        start_btn = findViewById(R.id.start_btn);
+        exit_btn = findViewById(R.id.exit_btn);
         getWindowManager().getDefaultDisplay().getSize(point);
         mainView = new MainView(this, point.x, point.y);
-        setContentView(mainView);
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mainView.invalidate();
-                    }
-                });
-            }
-        }, 0, INTERVAL);
+        start_btn.setOnClickListener(v -> {
+            setContentView(mainView);
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mainView.invalidate();
+                        }
+                    });
+                }
+            }, 0, INTERVAL);
+        });
+        exit_btn.setOnClickListener(v -> {
+            finish();
+        });
     }
 
     public void callEndActivity(int score) {
