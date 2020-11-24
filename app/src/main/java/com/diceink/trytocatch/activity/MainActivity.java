@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,16 +25,15 @@ public class MainActivity extends AppCompatActivity {
     private final static long INTERVAL = 30;
     private Intent intent;
 
-    private TextView textView;
-    private Button start_btn;
-    private Button exit_btn;
+    private ImageButton start_btn;
+    private ImageButton exit_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         handler = new Handler();
         point = new Point();
-        textView = findViewById(R.id.welcome);
+        setContentView(R.layout.activity_main);
         start_btn = findViewById(R.id.start_btn);
         exit_btn = findViewById(R.id.exit_btn);
         getWindowManager().getDefaultDisplay().getSize(point);
@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (MainView.IS_RUNNING) {
-
+            finish();
+            System.exit(0);
         } else {
             super.onBackPressed();
         }
